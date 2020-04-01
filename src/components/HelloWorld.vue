@@ -59,6 +59,7 @@
 </template>
 
 <script>
+  import NoSleep from 'nosleep.js'
   export default {
     name: 'HelloWorld',
     data() {
@@ -77,9 +78,11 @@
           console.log('counting down')
             if(this.seconds_remaining > 0) {
               this.seconds_remaining--;
+              this.noSleep.enable();
             } else if (this.seconds_remaining == 0) {
               this.play_alert() 
               this.seconds_remaining--;
+              this.noSleep.disable();
             }
             this.update_time()
           }, 1000);
@@ -87,21 +90,9 @@
     },
     mounted() {
       this.update_time()
+      this.noSleep = new NoSleep();
     },
-    // watch: {
-    //   seconds_remaining: {
-    //     handler(value) {
-    //       if (value > 0) {
-    //         setTimeout(() => {
-    //           this.seconds_remaining--;
-    //         }, 1000);
-    //       } else if (value == 0) {
-    //         this.play_alert() 
-    //       }
-    //     },
-    //     immediate: true // This ensures the watcher is triggered upon creation
-    //   }
-    // }
+
   }
 </script>
 
